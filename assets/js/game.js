@@ -66,9 +66,11 @@ var Game = {
         game.add.text(30, 20, "This is the game!", textStyle_Key);
         scoreTextValue = game.add.text(90, 18, score.toString(), textStyle_Value);
         // Speed.
-        game.add.text(500, 20, "SPEED", textStyle_Key);
+        game.add.text(500, 20, "Cash:", textStyle_Key);
         speedTextValue = game.add.text(558, 18, speed.toString(), textStyle_Value);
 
+        var cashText = this.game.add.bitmapText(Game.w/2, Game.h/2, 'nokia_font', 'Cash:', 21);
+        cashText.setText("Cash: "+banan.getCash());
     },
 
 
