@@ -8,6 +8,25 @@ var Menu = {
         // The first argument is how our image will be refered to,
         // the second one is the path to our file.
         this.game.stage.backgroundColor = '#061f27';
+        this.game.assets = {
+          launch: 0,
+          gravity:0,
+          etc: ''
+        };
+        this.game.assets = JSON.parse(localStorage.getItem('saveSettings'));
+        if (this.game.assets.launch != null) {
+          this.game.assets = {
+            launch: this.game.assets.launch+1,
+            gravity:0,
+            etc: ''
+          };
+        } else {
+          this.game.assets = {
+            launch: 0,
+            gravity:0,
+            etc: ''
+          };
+        }
     },
 
     create: function () {
@@ -27,7 +46,7 @@ var Menu = {
         versionText.smoothed = false;
 
         var gamelogoText;
-        gamelogoText = this.add.bitmapText(this.world.centerX, this.world.centerY/2, 'nokia_font', 'OpenPorts!',30);
+        gamelogoText = this.add.bitmapText(this.world.centerX, this.world.centerY/2, 'nokia_font', 'OpenPorts!'+this.game.assets.launch,30);
         gamelogoText.anchor.x = 0.5;
         gamelogoText.anchor.y = 0.5;
         gamelogoText.smoothed = false;
@@ -41,6 +60,15 @@ var Menu = {
         // It will act as a button to start the game.
         startText.events.onInputDown.add(this.startGame, this);
 
+        var saveText;
+        saveText = this.add.bitmapText(this.world.centerX, this.world.centerY - 40, 'nokia_font', 'Save Settings',20);
+        saveText.anchor.x = 0.5;
+        saveText.anchor.y = 0.5;
+        saveText.smoothed = false;
+        saveText.inputEnabled = true;
+        // It will act as a button to start the game.
+        saveText.events.onInputDown.add(this.saveSettings, this);
+
     },
 
     startGame: function () {
@@ -48,6 +76,11 @@ var Menu = {
         // Change the state to the actual game.
         this.state.start('Game');
 
+    },
+    saveSettings: function () {
+
+      localStorage.setItem('saveSettings',JSON.stringify(this.game.assets));
+      this.game.assets = JSON.parse(localStorage.getItem('saveSettings'));
     }
 
 };

@@ -1,20 +1,34 @@
-class Player {
-  var cash;
+BasicGame = {
 
-  constructor() {
-    cash = 100;
-  }
+    /* Here we've just got some global level vars that persist regardless of State swaps */
+    score: 0,
 
-  getCash() {
+    /* If the music in your game needs to play through-out a few State swaps, then you could reference it here */
+    music: null,
 
-    return this.cash;
-  }
+    /* Your game can check BasicGame.orientated in internal loops to know if it should pause or not */
+    orientated: false,
 
-  addCash(in) {
-    this.cash += in;
-  }
+    player: class Player {
+      var cash;
 
-  removeCash(in) {
-    this.cash -= in;
-  }
-}
+      constructor() {
+        cash = 100;
+      }
+
+      getCash() {
+
+        return this.cash;
+      }
+
+      addCash(in) {
+        this.cash += in;
+      }
+
+      removeCash(in) {
+        this.cash -= in;
+      }
+    }
+
+
+};
