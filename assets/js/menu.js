@@ -13,7 +13,7 @@ var Menu = {
           gravity:0,
           etc: ''
         };
-        this.game.assets = JSON.parse(localStorage.getItem('saveSettings'));
+        //this.game.assets = JSON.parse(localStorage.getItem('saveSettings'));
         if (this.game.assets.launch != null) {
           this.game.assets = {
             launch: this.game.assets.launch+1,
