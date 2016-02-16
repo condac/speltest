@@ -1,0 +1,35 @@
+{"shipDatabase": {
+
+    "rust1":  {
+        "id" : "rust1",
+        "modelName" : "Rusty old crap",
+        "cost" : 1300,
+        "tankSize" : 2000,
+        "cargoSize" : 7000,
+        "maxSpeed" : 15,
+        "category" : 1,
+        "fuelUse" : 2
+      },
+      "rust2": {
+        "id" : "rust2",
+        "modelName" : "Rusty Big crap",
+        "cost" : 2300,
+        "tankSize" : 2500,
+        "cargoSize" : 15000,
+        "maxSpeed" : 15,
+        "category" : 1,
+        "fuelUse" : 2
+
+      },
+      "budget1":  {
+          "id" : "budget1",
+          "modelName" : "Budget small ship",
+          "cost" : 13000,
+          "tankSize" : 3000,
+          "cargoSize" : 10000,
+          "maxSpeed" : 15,
+          "category" : 1,
+          "fuelUse" : 2
+        }
+
+}}

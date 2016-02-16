@@ -3,6 +3,20 @@ var snake, apple, squareSize, score, speed,
     addNew, cursors, scoreTextValue, speedTextValue,
     textStyle_Key, textStyle_Value;
 var sprite1;
+var cashText;
+var dumpText;
+
+var buttonBuyShip;
+var buttonLoadGame;
+var buttonMainMenu;
+var buttonNextDay;
+var buttonSaveGame;
+
+
+var p1_cashText;
+var p2_cashText;
+var p3_cashText;
+var p4_cashText;
 
 var Game = {
 
@@ -14,6 +28,12 @@ var Game = {
     },
 
     create : function() {
+
+        var background = game.add.sprite(0, 0, "worldmap");
+        background.smoothed = false;
+        background.scale.x = 2;
+        background.scale.y = 2;
+
         var menuButton;
         // Add a sprite to your game, here the sprite will be the game's logo
         // Parameters are : X , Y , image name (see above)
@@ -22,63 +42,128 @@ var Game = {
         menuButton.scale.x = 2;
         menuButton.scale.y = 2;
 
+        var buttonwidth = 89*2;
+        var buttonheight = 21;
+
+        buttonMainMenu = this.add.button(buttonwidth*0, 0, 'mainMenuButtonImage', this.buttonMainMenuClick, this);
+        buttonBuyShip =  this.add.button(buttonwidth*1, 0, 'buyShipButtonImage',  this.buttonBuyShipClick, this);
+        buttonLoadGame = this.add.button(buttonwidth*2, 0, 'loadGameButtonImage', this.buttonLoadGameClick, this);
+        buttonNextDay =  this.add.button(buttonwidth*3, 0, 'nextDayButtonImage',  this.buttonNextDayClick, this);
+        buttonSaveGame = this.add.button(buttonwidth*4, 0, 'saveGameButtonImage', this.buttonSaveGameClick, this);
+
+        buttonBuyShip.smoothed = false;
+        buttonLoadGame.smoothed = false;
+        buttonMainMenu.smoothed = false;
+        buttonNextDay.smoothed = false;
+        buttonSaveGame.smoothed = false;
+
+        buttonBuyShip .scale.x = 2;
+        buttonLoadGame.scale.x = 2;
+        buttonMainMenu.scale.x = 2;
+        buttonNextDay .scale.x = 2;
+        buttonSaveGame.scale.x = 2;
+
+        buttonBuyShip .scale.y = 2;
+        buttonLoadGame.scale.y = 2;
+        buttonMainMenu.scale.y = 2;
+        buttonNextDay .scale.y = 2;
+        buttonSaveGame.scale.y = 2;
+
         sprite1 = this.add.sprite(100, 200, 'logo');
         sprite1.inputEnabled = true;
         sprite1.input.enableDrag();
         sprite1.scale.x = 2;
         sprite1.scale.y = 2;
+        sprite1.events.onInputDown.add(this.sprite1Click, this);
 
-
-        // By setting up global variables in the create function, we initialise them on game start.
-        // We need them to be globally available so that the update function can alter them.
-
-        snake = [];                     // This will work as a stack, containing the parts of our snake
-        apple = {};                     // An object for the apple;
-        squareSize = 15;                // The length of a side of the squares. Our image is 15x15 pixels.
-        score = 0;                      // Game score.
-        speed = 0;                      // Game speed.
-        updateDelay = 0;                // A variable for control over update rates.
-        direction = 'right';            // The direction of our snake.
-        new_direction = null;           // A buffer to store the new direction into.
-        addNew = false;                 // A variable used when an apple has been eaten.
 
         // Set up a Phaser controller for keyboard input.
         cursors = game.input.keyboard.createCursorKeys();
 
         game.stage.backgroundColor = '#061f27';
 
-        // Generate the initial snake stack. Our snake will be 10 elements long.
-        // Beginning at X=150 Y=150 and increasing the X on every iteration.
-        //for(var i = 0; i < 10; i++){
-        //    snake[i] = game.add.sprite(150+i*squareSize, 150, 'snake');  // Parameters are (X coordinate, Y coordinate, image)
-        //}
-
-
-        // Genereate the first apple.
-        //this.generateApple();
 
 
         // Add Text to top of game.
-        textStyle_Key = { font: "bold 14px sans-serif", fill: "#46c0f9", align: "center" };
+        textStyle_Key = { font: "14px Courier", fill: "#FF1000", align: "center" };
         textStyle_Value = { font: "bold 18px sans-serif", fill: "#fff", align: "center" };
 
-        // Score.
-        game.add.text(30, 20, "This is the game!", textStyle_Key);
-        scoreTextValue = game.add.text(90, 18, score.toString(), textStyle_Value);
-        // Speed.
-        game.add.text(500, 20, "Cash:", textStyle_Key);
-        speedTextValue = game.add.text(558, 18, speed.toString(), textStyle_Value);
+        dumpText = game.add.text(30, this.world.height/2, "This is the game!!", textStyle_Key);
 
-        var cashText = this.game.add.bitmapText(Game.w/2, Game.h/2, 'nokia_font', 'Cash:', 21);
-        cashText.setText("Cash: "+banan.getCash());
+        dumpText.setText(ShipFactory.getModelName(SHIP_TYPE_RUST_1));
+        //scoreTextValue = game.add.text(90, 18, score.toString(), textStyle_Value);
+
+
+        p1_cashText = this.game.add.bitmapText(this.world.width, 15*1, 'nokia_font', 'Cash:', 15);
+        p1_cashText.anchor.x = 1;
+        p1_cashText.anchor.y = 0;
+        p1_cashText.smoothed = false;
+        p1_cashText.setText("Cash: "+Mech.players[1].getCash());
+
+        p2_cashText = this.game.add.bitmapText(this.world.width, 15*2, 'nokia_font', 'Cash:', 15);
+        p2_cashText.anchor.x = 1;
+        p2_cashText.anchor.y = 0;
+        p2_cashText.smoothed = false;
+        p2_cashText.setText("Cash: "+Mech.players[2].getCash());
+
+        p3_cashText = this.game.add.bitmapText(this.world.width, 15*3, 'nokia_font', 'Cash:', 15);
+        p3_cashText.anchor.x = 1;
+        p3_cashText.anchor.y = 0;
+        p3_cashText.smoothed = false;
+        p3_cashText.setText("Cash: "+Mech.players[3].getCash());
+
+        p4_cashText = this.game.add.bitmapText(this.world.width, 15*4, 'nokia_font', 'Cash:', 15);
+        p4_cashText.anchor.x = 1;
+        p4_cashText.anchor.y = 0;
+        p4_cashText.smoothed = false;
+        p4_cashText.setText("Cash: "+Mech.players[4].getCash());
+
     },
 
+    buttonMainMenuClick: function() {
+      console.log("buttonMainMenuClick");
 
+    },
+    buttonBuyShipClick: function() {
+      console.log("buttonBuyShipClick");
+      var name = prompt("Please enter the name of your new ship", "MS Titanic");
+      Mech.player[1].buyShip(SHIP_TYPE_RUST_1,name);
+    },
+    buttonLoadGameClick: function() {
+      console.log("buttonLoadGameClick");
+
+
+    },
+    buttonNextDayClick: function() {
+      console.log("buttonNextDayClick");
+
+
+    },
+    buttonSaveGameClick: function() {
+      console.log("buttonSaveGameClick");
+
+    },
+
+    sprite1Click: function() {
+      console.log("sprite1click");
+      //Mech.players[1].addCash(1);
+      var name = prompt("Please enter your name", "Anonymous");
+      if(name) {
+        console.log("Hello "+name+", nice to meet you!");
+      }
+      Mech.nextDay();
+
+    },
 
     update: function() {
         // The update function is called constantly at a high rate (somewhere around 60fps),
         // updating the game field every time.
         // We are going to leave that one empty for now.
+        p1_cashText.setText(Mech.players[1].getName()+" Cash: "+Mech.players[1].getCash());
+        p2_cashText.setText(Mech.players[2].getName()+" Cash: "+Mech.players[2].getCash());
+        p3_cashText.setText(Mech.players[3].getName()+" Cash: "+Mech.players[3].getCash());
+        p4_cashText.setText(Mech.players[4].getName()+" Cash: "+Mech.players[4].getCash());
+        dumpText.setText( Mech.players[1].shipList );
     },
 
 
@@ -98,7 +183,7 @@ var Game = {
         // The update function is called constantly at a high rate (somewhere around 60fps),
         // updating the game field every time.
         // We are going to leave that one empty for now.
-        game.debug.spriteInfo(sprite1, 32, 32);
+        //game.debug.spriteInfo(sprite1, 32, 32);
     },
 
     mainMenu: function() {

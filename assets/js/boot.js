@@ -31,10 +31,18 @@ Load.prototype = {
 
     // Place all files to load here
     this.game.load.image('logo', './assets/images/lego.png');
+    this.game.load.image('worldmap', './assets/images/world-map_640.png');
     this.game.load.spritesheet('button', 'assets/images/phaser.png', 63, 22);
+    this.game.load.json('shipDatabase', './assets/ships.json');
+    this.game.load.image('buyShipButtonImage', './assets/images/buyship.png');
+    this.game.load.image('loadGameButtonImage', './assets/images/loadgame.png');
+    this.game.load.image('mainMenuButtonImage', './assets/images/mainmenu.png');
+    this.game.load.image('nextDayButtonImage', './assets/images/nextday.png');
+    this.game.load.image('saveGameButtonImage', './assets/images/savegame.png');
 
   },
   create: function() {
+    Mech.createWorld();
     this.game.state.start('Menu');
   }
 };
