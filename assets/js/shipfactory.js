@@ -26,9 +26,18 @@ var ShipFactory =  {
     return shipjson.modelName;
 
   },
+  getCost : function(type) {
+    console.log(type);
+    var phaserJSON = game.cache.getJSON('shipDatabase');
+    phaserJSON = phaserJSON["shipDatabase"];
+    var shipjson = phaserJSON[type];
+    return shipjson.cost;
+
+  },
   getTankSize : function(type) {
 
     var phaserJSON = game.cache.getJSON('shipDatabase');
+    phaserJSON = phaserJSON["shipDatabase"];
     var shipjson = phaserJSON[type];
     return shipjson.tankSize;
 
@@ -36,6 +45,7 @@ var ShipFactory =  {
   getCargoSize : function(type) {
 
     var phaserJSON = game.cache.getJSON('shipDatabase');
+    phaserJSON = phaserJSON["shipDatabase"];
     var shipjson = phaserJSON[type];
     return shipjson.cargoSize;
 
@@ -43,6 +53,7 @@ var ShipFactory =  {
   getMaxSpeed : function(type) {
 
     var phaserJSON = game.cache.getJSON('shipDatabase');
+    phaserJSON = phaserJSON["shipDatabase"];
     var shipjson = phaserJSON[type];
     return shipjson.maxSpeed;
 
@@ -50,6 +61,7 @@ var ShipFactory =  {
   getFuelUse : function(type) {
 
     var phaserJSON = game.cache.getJSON('shipDatabase');
+    phaserJSON = phaserJSON["shipDatabase"];
     var shipjson = phaserJSON[type];
     return shipjson.fuelUse;
 

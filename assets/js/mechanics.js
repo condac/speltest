@@ -22,6 +22,7 @@ var Mech = {
       Mech.players[2].addCash(2);
       Mech.players[3].addCash(3);
       Mech.players[4].addCash(4);
+      Mech.players[1].shipList[0].doTurn();
     }
 };
 
@@ -32,8 +33,11 @@ var Player = function(name) {
     this.shipList = [];
 
     this.buyShip = function(type,name) {
-      
-
+      //Chek if we have the money
+      // if
+      this.cash -= ShipFactory.getCost(type);
+      this.shipList.push(new Ship(type,name,this));
+      //console.log(this.shipList);
     }
     this.getCash = function() {
         //console.log("Mech.getCash"+this.cash);
@@ -41,7 +45,7 @@ var Player = function(name) {
     };
 
     this.addCash = function(input) {
-        console.log("Mech.addCash"+input);
+        //console.log("Mech.addCash"+input);
         this.cash += input;
     };
 
@@ -58,9 +62,9 @@ var M_STATUS_ONMISSION = 1;
 var M_STATUS_LOADING = 2;
 var M_STATUS_UNLOADING = 3;
 
-var Ship = function(type,name) {
+var Ship = function(type,name,player) {
 
-
+    this.player = player
     this.name = name;
     this.type = type;
     this.tankSize = ShipFactory.getTankSize(type);
@@ -84,19 +88,21 @@ var Ship = function(type,name) {
     this.mAward = 0;
 
 
-    this.startMission = function(totalDistance, award, destination, departure ) {
+    this.startMission = function(totalDistance, award, destination, departure,speed) {
       this.mStatus = M_STATUS_LOADING;
       this.mDistance = 0.0; // Distance traveled
       this.mTotalDistance = totalDistance;
       this.mLoading  = 3; // Days left loading/unloading cargo
-      this.mSpeed = 0; // the speed set by the player
+      this.mSpeed = speed; // the speed set by the player
       this.mDestination = 0;
       this.mAward = award;
       this.needOrder = false;
+      console.log("Mission started");
     }
     this.stopMission = function() {
       //Mission is done for some reason
-
+      this.player.addCash(this.mAward);
+      this.mStatus = M_STATUS_NOMISSION;
     }
 
     this.doTurn = function() {
@@ -143,7 +149,7 @@ var Ship = function(type,name) {
       }
 
         //if something is done then  needOrder = true;
-
+        console.log("did a turn with ship");
 
     };
 
@@ -166,11 +172,11 @@ var Ship = function(type,name) {
           break;
 
       }
-      return
-    }
+      return "getCurrentStatusInText default";
+    };
     this.getDamage = function() {
 
-    }
+    };
     this.getTankSize = function() {
         return this.tankSize;
     };

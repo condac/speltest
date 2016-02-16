@@ -85,7 +85,7 @@ var Game = {
 
 
         // Add Text to top of game.
-        textStyle_Key = { font: "14px Courier", fill: "#FF1000", align: "center" };
+        textStyle_Key = { font: "bold 14px Courier", fill: "#FF1000", align: "left" };
         textStyle_Value = { font: "bold 18px sans-serif", fill: "#fff", align: "center" };
 
         dumpText = game.add.text(30, this.world.height/2, "This is the game!!", textStyle_Key);
@@ -127,20 +127,26 @@ var Game = {
     buttonBuyShipClick: function() {
       console.log("buttonBuyShipClick");
       var name = prompt("Please enter the name of your new ship", "MS Titanic");
-      Mech.player[1].buyShip(SHIP_TYPE_RUST_1,name);
+      Mech.players[1].buyShip(SHIP_TYPE_RUST_1,name);
     },
     buttonLoadGameClick: function() {
       console.log("buttonLoadGameClick");
+
+      Mech.players[1].shipList[0].startMission(5000, 10000, "destination", "departure",15);
 
 
     },
     buttonNextDayClick: function() {
       console.log("buttonNextDayClick");
-
+      Mech.nextDay();
+      console.log(Mech.players[1]);
 
     },
     buttonSaveGameClick: function() {
       console.log("buttonSaveGameClick");
+      console.log("shiplist output:");
+      console.log(Mech.players[1].shipList);
+
 
     },
 
@@ -163,10 +169,20 @@ var Game = {
         p2_cashText.setText(Mech.players[2].getName()+" Cash: "+Mech.players[2].getCash());
         p3_cashText.setText(Mech.players[3].getName()+" Cash: "+Mech.players[3].getCash());
         p4_cashText.setText(Mech.players[4].getName()+" Cash: "+Mech.players[4].getCash());
-        dumpText.setText( Mech.players[1].shipList );
+        this.updateText();
     },
 
+    updateText: function() {
+      var shipstatus = "Player 1 ships: \n";
+      for (var ship in Mech.players[1].shipList) {
 
+        shipstatus += Mech.players[1].shipList[ship].getName()+": ";
+        shipstatus += Mech.players[1].shipList[ship].getCurrentStatusInText();
+        shipstatus +="\n";
+      }
+
+      dumpText.setText( shipstatus );
+    },
     generateApple: function(){
 
         // Chose a random place on the grid.
