@@ -27,7 +27,7 @@ var ShipFactory =  {
 
   },
   getCost : function(type) {
-    console.log(type);
+    //console.log(type);
     var phaserJSON = game.cache.getJSON('shipDatabase');
     phaserJSON = phaserJSON["shipDatabase"];
     var shipjson = phaserJSON[type];

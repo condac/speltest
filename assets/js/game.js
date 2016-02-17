@@ -135,13 +135,15 @@ var Game = {
         p4_cashText.smoothed = false;
         p4_cashText.setText("Cash: "+Mech.players[4].getCash());
 
+        this.checkForAction();
+
     },
 
     buttonPlayer1Click: function() {
       console.log("buttonPlayer1Click");
       Mech.setCurrentPlayer(1);
-      Mech.setCurrentShip(1);
-      game.state.start("Selector");
+      //Mech.setCurrentShip(1);
+
     },
     buttonPlayer2Click: function() {
       console.log("buttonPlayer2Click");
@@ -158,7 +160,19 @@ var Game = {
       Mech.setCurrentPlayer(4);
 
     },
+    checkForAction: function() {
+      for (var player in Mech.players) {
+        for (var ship in Mech.players[player].shipList) {
+          if (Mech.players[player].shipList[ship].waitingForAction() ) {
+            Mech.setCurrentPlayer(player);
+            Mech.setCurrentShip(ship);
+            game.state.start("Selector");
+          }
 
+        }
+      }
+
+    },
 
 
     buttonMainMenuClick: function() {
@@ -183,7 +197,7 @@ var Game = {
       console.log("buttonNextDayClick");
       Mech.nextDay();
       console.log(Mech.players[1]);
-
+      this.checkForAction();
     },
     buttonFastForwardClick: function() {
       console.log("buttonFastForwardClick");
@@ -193,17 +207,15 @@ var Game = {
     buttonSaveGameClick: function() {
       console.log("buttonSaveGameClick");
       console.log("shiplist output:");
-      console.log(Mech.players[1].shipList);
+      console.log(Mech.players);
 
 
     },
 
     sprite1Click: function() {
       console.log("sprite1click");
-      //Mech.players[1].addCash(1);
-      //
-      Mech.setCurrentPlayer(1);
-      Mech.setCurrentShip(0);
+      Mech.players[1].addCash(100000);
+
     },
 
     update: function() {
@@ -218,11 +230,11 @@ var Game = {
     },
 
     updateText: function() {
-      var shipstatus = "Player 1 ships: \n";
-      for (var ship in Mech.players[1].shipList) {
+      var shipstatus = "Player "+Mech.currentPlayer+" ships: \n";
+      for (var ship in Mech.players[Mech.currentPlayer].shipList) {
 
-        shipstatus += Mech.players[1].shipList[ship].getName()+": ";
-        shipstatus += Mech.players[1].shipList[ship].getCurrentStatusInText();
+        shipstatus += Mech.players[Mech.currentPlayer].shipList[ship].getName()+": ";
+        shipstatus += Mech.players[Mech.currentPlayer].shipList[ship].getCurrentStatusInText();
         shipstatus +="\n";
       }
 

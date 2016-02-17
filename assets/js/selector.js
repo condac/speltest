@@ -35,17 +35,17 @@ var Selector = {
           shipText.smoothed = false;
 
         var exitText;
-        exitText = this.add.bitmapText(this.world.centerX,this.world.height, 'nokia_font', 'Exit Store',20);
+        exitText = this.add.bitmapText(this.world.centerX,this.world.height, 'nokia_font', 'Go on Mission!!',20);
         exitText.anchor.x = 0.5;
         exitText.anchor.y = 1;
         exitText.smoothed = false;
         exitText.inputEnabled = true;
         // It will act as a button to start the game.
-        exitText.events.onInputDown.add(this.exitStore, this);
+        exitText.events.onInputDown.add(this.goOnMission, this);
 
     },
     buyShip: function(button) {
-        console.log("Store: buyShip function");
+        //console.log("Store: buyShip function");
 
           if (button.shipType != 0) {
             //Check if player has the money
@@ -58,6 +58,19 @@ var Selector = {
 
     },
 
+    doRefuel: function() {
+
+        // Change the state back to game
+        this.state.start('Game');
+
+    },
+    goOnMission: function() {
+
+      Mech.players[Mech.currentPlayer].shipList[Mech.currentShip].startMission(5000, 10000, "destination", "departure",15);
+      // Change the state back to game
+      this.state.start('Game');
+
+    },
 
     exitStore: function() {
 

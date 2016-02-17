@@ -34,13 +34,13 @@ var Mech = {
         Mech.players[1].shipList[ship].doTurn();
       }
       for (var ship in Mech.players[2].shipList) {
-        Mech.players[1].shipList[ship].doTurn();
+        Mech.players[2].shipList[ship].doTurn();
       }
       for (var ship in Mech.players[3].shipList) {
-        Mech.players[1].shipList[ship].doTurn();
+        Mech.players[3].shipList[ship].doTurn();
       }
       for (var ship in Mech.players[4].shipList) {
-        Mech.players[1].shipList[ship].doTurn();
+        Mech.players[4].shipList[ship].doTurn();
       }
 
 
@@ -56,7 +56,7 @@ var Mech = {
 
 var Player = function(name) {
 
-    this.cash= 1337;
+    this.cash= 4000000;
     this.name= name;
     this.shipList = [];
 
@@ -65,7 +65,7 @@ var Player = function(name) {
       // if
       this.cash -= ShipFactory.getCost(type);
       this.shipList.push(new Ship(type,name,this));
-      console.log(this.shipList);
+      //console.log(this.shipList);
     }
     this.getCash = function() {
         //console.log("Mech.getCash"+this.cash);
@@ -123,7 +123,7 @@ var Ship = function(type,name,player) {
     this.mStatus = 4;
     this.mDistance = 0.0; // Distance traveled
     this.mTotalDistance = 0.0;
-    this.mLoading  = 0; // Days left loading/unloading cargo
+    this.mLoading  = 2; // Days left loading/unloading cargo
     this.mSpeed = 0; // the speed set by the player
     this.mDestination = 0;
     this.mAward = 0;
@@ -220,6 +220,9 @@ var Ship = function(type,name,player) {
         case M_STATUS_NOMISSION:
           return "No mission";
           break;
+        case M_STATUS_NEWSHIP:
+          return "Waiting for ship to be delivered, press NextDay...";
+          break;
 
       }
       return "getCurrentStatusInText default";
@@ -228,9 +231,7 @@ var Ship = function(type,name,player) {
       return this.getCondition();
     };
     this.getCondition = function() {
-      console.log("GetCondition");
-      console.log(this.damage);
-      console.log(Math.floor(this.damage));
+
       return Math.floor(this.damage);
     };
     this.getTankSize = function() {
@@ -250,5 +251,8 @@ var Ship = function(type,name,player) {
     };
     this.getName = function() {
         return this.name;
+    };
+    this.waitingForAction = function() {
+        return this.needOrder;
     };
 };

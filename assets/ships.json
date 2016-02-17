@@ -4,7 +4,7 @@
         "id" : "rust1",
         "modelName" : "Rusty old crap2",
         "initialCondition" : 55.5,
-        "cost" : 1300,
+        "cost" : 1300000,
         "tankSize" : 2000,
         "cargoSize" : 7000,
         "maxSpeed" : 15,
@@ -16,7 +16,7 @@
       "rust2": {
         "id" : "rust2",
         "modelName" : "Rusty Big crap",
-        "cost" : 2300,
+        "cost" : 2300000,
         "tankSize" : 2500,
         "cargoSize" : 15000,
         "maxSpeed" : 15,
@@ -29,7 +29,7 @@
       "budget1":  {
           "id" : "budget1",
           "modelName" : "Budget small ship",
-          "cost" : 13000,
+          "cost" : 13000000,
           "tankSize" : 3000,
           "cargoSize" : 10000,
           "maxSpeed" : 15,
