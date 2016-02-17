@@ -102,10 +102,10 @@ var Game = {
 
 
         // Add Text to top of game.
-        textStyle_Key = { font: "bold 14px Courier", fill: "#FF1000", align: "left" };
+        textStyle_Key = { font: "bold 18px Courier", fill: "#111", align: "left" };
         textStyle_Value = { font: "bold 18px Courier", fill: "#fff", align: "center" };
 
-        dumpText = game.add.text(30, this.world.height/2, "This is the game!!", textStyle_Key);
+        dumpText = game.add.text(playerbuttonwidth, playerbuttonheight, "This is the game!!", textStyle_Key);
 
         dumpText.setText(ShipFactory.getModelName(SHIP_TYPE_RUST_1));
         //scoreTextValue = game.add.text(90, 18, score.toString(), textStyle_Value);
