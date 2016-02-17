@@ -11,7 +11,7 @@ var buttonLoadGame;
 var buttonMainMenu;
 var buttonNextDay;
 var buttonSaveGame;
-
+var button1, button2, button3, button4;
 
 var p1_cashText;
 var p2_cashText;
@@ -28,19 +28,12 @@ var Game = {
     },
 
     create : function() {
-
+      console.log("Game Create");
         var background = game.add.sprite(0, 0, "worldmap");
         background.smoothed = false;
         background.scale.x = 2;
         background.scale.y = 2;
 
-        var menuButton;
-        // Add a sprite to your game, here the sprite will be the game's logo
-        // Parameters are : X , Y , image name (see above)
-        menuButton = this.add.button(32, 32, 'button', this.mainMenu, this);
-        menuButton.smoothed = false;
-        menuButton.scale.x = 2;
-        menuButton.scale.y = 2;
 
         var buttonwidth = 89*2;
         var buttonheight = 21;
@@ -69,11 +62,35 @@ var Game = {
         buttonNextDay .scale.y = 2;
         buttonSaveGame.scale.y = 2;
 
-        sprite1 = this.add.sprite(100, 200, 'logo');
+
+        var playerbuttonwidth = 64*2;
+        var playerbuttonheight = 64*2;
+
+        button1 = this.add.button(playerbuttonwidth*0, playerbuttonheight*1, 'button1', this.buttonPlayer1Click, this);
+        button2 = this.add.button(playerbuttonwidth*0, playerbuttonheight*2, 'button2', this.buttonPlayer2Click, this);
+        button3 = this.add.button(playerbuttonwidth*0, playerbuttonheight*3, 'button3', this.buttonPlayer3Click, this);
+        button4 = this.add.button(playerbuttonwidth*0, playerbuttonheight*4, 'button4', this.buttonPlayer4Click, this);
+
+        button1.smoothed = false;
+        button2.smoothed = false;
+        button3.smoothed = false;
+        button4.smoothed = false;
+
+        button1.scale.x = 2;
+        button2.scale.x = 2;
+        button3.scale.x = 2;
+        button4.scale.x = 2;
+
+        button1.scale.y = 2;
+        button2.scale.y = 2;
+        button3.scale.y = 2;
+        button4.scale.y = 2;
+
+        sprite1 = this.add.sprite(100, 200, 'pirateship');
         sprite1.inputEnabled = true;
         sprite1.input.enableDrag();
-        sprite1.scale.x = 2;
-        sprite1.scale.y = 2;
+        sprite1.scale.x = 1;
+        sprite1.scale.y = 1;
         sprite1.events.onInputDown.add(this.sprite1Click, this);
 
 
@@ -86,7 +103,7 @@ var Game = {
 
         // Add Text to top of game.
         textStyle_Key = { font: "bold 14px Courier", fill: "#FF1000", align: "left" };
-        textStyle_Value = { font: "bold 18px sans-serif", fill: "#fff", align: "center" };
+        textStyle_Value = { font: "bold 18px Courier", fill: "#fff", align: "center" };
 
         dumpText = game.add.text(30, this.world.height/2, "This is the game!!", textStyle_Key);
 
@@ -120,14 +137,40 @@ var Game = {
 
     },
 
+    buttonPlayer1Click: function() {
+      console.log("buttonPlayer1Click");
+      Mech.setCurrentPlayer(1);
+      Mech.setCurrentShip(1);
+      game.state.start("Selector");
+    },
+    buttonPlayer2Click: function() {
+      console.log("buttonPlayer2Click");
+      Mech.setCurrentPlayer(2);
+
+    },
+    buttonPlayer3Click: function() {
+      console.log("buttonPlayer3Click");
+      Mech.setCurrentPlayer(3);
+
+    },
+    buttonPlayer4Click: function() {
+      console.log("buttonPlayer4Click");
+      Mech.setCurrentPlayer(4);
+
+    },
+
+
+
     buttonMainMenuClick: function() {
       console.log("buttonMainMenuClick");
+      this.mainMenu();
 
     },
     buttonBuyShipClick: function() {
       console.log("buttonBuyShipClick");
-      var name = prompt("Please enter the name of your new ship", "MS Titanic");
-      Mech.players[1].buyShip(SHIP_TYPE_RUST_1,name);
+      //var name = prompt("Please enter the name of your new ship", "MS Titanic");
+      //Mech.players[1].buyShip(SHIP_TYPE_RUST_1,name);
+      game.state.start('Store');
     },
     buttonLoadGameClick: function() {
       console.log("buttonLoadGameClick");
@@ -142,6 +185,11 @@ var Game = {
       console.log(Mech.players[1]);
 
     },
+    buttonFastForwardClick: function() {
+      console.log("buttonFastForwardClick");
+      //Start some timer that run nextDay at interval
+
+    },
     buttonSaveGameClick: function() {
       console.log("buttonSaveGameClick");
       console.log("shiplist output:");
@@ -153,22 +201,19 @@ var Game = {
     sprite1Click: function() {
       console.log("sprite1click");
       //Mech.players[1].addCash(1);
-      var name = prompt("Please enter your name", "Anonymous");
-      if(name) {
-        console.log("Hello "+name+", nice to meet you!");
-      }
-      Mech.nextDay();
-
+      //
+      Mech.setCurrentPlayer(1);
+      Mech.setCurrentShip(0);
     },
 
     update: function() {
         // The update function is called constantly at a high rate (somewhere around 60fps),
         // updating the game field every time.
         // We are going to leave that one empty for now.
-        p1_cashText.setText(Mech.players[1].getName()+" Cash: "+Mech.players[1].getCash());
-        p2_cashText.setText(Mech.players[2].getName()+" Cash: "+Mech.players[2].getCash());
-        p3_cashText.setText(Mech.players[3].getName()+" Cash: "+Mech.players[3].getCash());
-        p4_cashText.setText(Mech.players[4].getName()+" Cash: "+Mech.players[4].getCash());
+        p1_cashText.setText(Mech.players[1].getName()+" : "+Mech.players[1].getCashNiceString());
+        p2_cashText.setText(Mech.players[2].getName()+" : "+Mech.players[2].getCashNiceString());
+        p3_cashText.setText(Mech.players[3].getName()+" : "+Mech.players[3].getCashNiceString());
+        p4_cashText.setText(Mech.players[4].getName()+" : "+Mech.players[4].getCashNiceString());
         this.updateText();
     },
 

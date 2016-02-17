@@ -1,0 +1,26 @@
+{
+  "portDatabase": {
+
+    "nyc":  {
+      "id" : "nyc",
+      "name" : "New York",
+      "lat" : 40.75170,
+      "long" : -73.99420,
+      "mapX" : 30,
+      "mapY" : 40,
+      "goods" : ["foodstuffs", "commodities", "minerals", "manufactured goods", "cut diamonds", "automobile parts"],
+      "url" : "http://www.golombek.com/locations.html"
+    },
+    "london": {
+      "id" : "london",
+      "modelName" : "London",
+      "lat" : 51.50000,
+      "long" : -0.11670,
+      "mapX" : 300,
+      "mapY" : 400,
+      "goods" : ["foodstuffs", "commodities", "minerals", "manufactured goods", "cut diamonds", "automobile parts"],
+
+    }
+
+  }
+}

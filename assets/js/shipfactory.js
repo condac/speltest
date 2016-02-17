@@ -21,7 +21,7 @@ var ShipFactory =  {
 
     var phaserJSON = game.cache.getJSON('shipDatabase');
     phaserJSON = phaserJSON["shipDatabase"];
-    console.log(phaserJSON);
+    //console.log(phaserJSON);
     var shipjson = phaserJSON[type];
     return shipjson.modelName;
 
@@ -65,5 +65,20 @@ var ShipFactory =  {
     var shipjson = phaserJSON[type];
     return shipjson.fuelUse;
 
+  },
+  getDailyCost : function(type) {
+
+    var phaserJSON = game.cache.getJSON('shipDatabase');
+    phaserJSON = phaserJSON["shipDatabase"];
+    var shipjson = phaserJSON[type];
+    return shipjson.dailyCost;
+
+  },
+  getInitialCondition : function(type) {
+
+    var phaserJSON = game.cache.getJSON('shipDatabase');
+    phaserJSON = phaserJSON["shipDatabase"];
+    var shipjson = phaserJSON[type];
+    return shipjson.initialCondition;
   }
 };

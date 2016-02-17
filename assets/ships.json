@@ -2,13 +2,16 @@
 
     "rust1":  {
         "id" : "rust1",
-        "modelName" : "Rusty old crap",
+        "modelName" : "Rusty old crap2",
+        "initialCondition" : 55.5,
         "cost" : 1300,
         "tankSize" : 2000,
         "cargoSize" : 7000,
         "maxSpeed" : 15,
         "category" : 1,
+        "dailyCost" : 3000,
         "fuelUse" : 2
+
       },
       "rust2": {
         "id" : "rust2",
@@ -18,7 +21,9 @@
         "cargoSize" : 15000,
         "maxSpeed" : 15,
         "category" : 1,
-        "fuelUse" : 2
+        "fuelUse" : 2,
+        "initialCondition" : 55,
+        "dailyCost" : 3000
 
       },
       "budget1":  {
@@ -29,7 +34,9 @@
           "cargoSize" : 10000,
           "maxSpeed" : 15,
           "category" : 1,
-          "fuelUse" : 2
+          "fuelUse" : 2,
+          "initialCondition" : 90,
+          "dailyCost" : 3000
         }
 
 }}

@@ -1,8 +1,15 @@
 var Mech = {
 
-    score: 0,
-    cash: 1337,
+    currentPlayer: 1,
+    currentShip: 1,
     players:[],
+
+    setCurrentPlayer: function(invar) {
+      this.currentPlayer = invar;
+    },
+    setCurrentShip: function(invar) {
+      this.currentShip = invar;
+    },
 
     createWorld: function() {
       this.players[1] = new Player("Kalle");
@@ -22,7 +29,28 @@ var Mech = {
       Mech.players[2].addCash(2);
       Mech.players[3].addCash(3);
       Mech.players[4].addCash(4);
-      Mech.players[1].shipList[0].doTurn();
+
+      for (var ship in Mech.players[1].shipList) {
+        Mech.players[1].shipList[ship].doTurn();
+      }
+      for (var ship in Mech.players[2].shipList) {
+        Mech.players[1].shipList[ship].doTurn();
+      }
+      for (var ship in Mech.players[3].shipList) {
+        Mech.players[1].shipList[ship].doTurn();
+      }
+      for (var ship in Mech.players[4].shipList) {
+        Mech.players[1].shipList[ship].doTurn();
+      }
+
+
+    },
+    weightedRandom: function (max, bellFactor) {
+      var num = 0;
+      for (var i = 0; i < bellFactor; i++) {
+          num += Math.random() * (max/bellFactor);
+      }
+      return num;
     }
 };
 
@@ -37,13 +65,22 @@ var Player = function(name) {
       // if
       this.cash -= ShipFactory.getCost(type);
       this.shipList.push(new Ship(type,name,this));
-      //console.log(this.shipList);
+      console.log(this.shipList);
     }
     this.getCash = function() {
         //console.log("Mech.getCash"+this.cash);
         return this.cash;
     };
+    this.getCashNiceString = function() {
+        if (this.cash > 1000000) {
+          return "$"+(Math.round(this.cash/1000000 * 100) / 100)+"M";
+        }
+        if (this.cash > 1000) {
+          return "$"+(Math.round(this.cash/1000 * 100) / 100)+"K";
+        }
 
+        return "$"+this.cash;
+    };
     this.addCash = function(input) {
         //console.log("Mech.addCash"+input);
         this.cash += input;
@@ -61,6 +98,7 @@ var M_STATUS_NOMISSION = 0;
 var M_STATUS_ONMISSION = 1;
 var M_STATUS_LOADING = 2;
 var M_STATUS_UNLOADING = 3;
+var M_STATUS_NEWSHIP = 4;
 
 var Ship = function(type,name,player) {
 
@@ -71,15 +109,18 @@ var Ship = function(type,name,player) {
     this.cargoSize = ShipFactory.getCargoSize(type);
     this.maxSpeed = ShipFactory.getMaxSpeed(type);
     this.fuelUse = ShipFactory.getFuelUse(type);
+    this.damage = ShipFactory.getInitialCondition(type);
+
+    this.dailyCost = ShipFactory.getDailyCost(type);
     this.fuel = this.tankSize;
     //this.modelName = ShipFactory.getModelName(type);
-    this.needOrder = true;
+    this.needOrder = false;
     this.coordinateX = 10.0;
     this.coordinateY = 10.0;
-    this.damage = 100.0;
+
 
     //Mission variables
-    this.mStatus = 0;
+    this.mStatus = 4;
     this.mDistance = 0.0; // Distance traveled
     this.mTotalDistance = 0.0;
     this.mLoading  = 0; // Days left loading/unloading cargo
@@ -103,12 +144,16 @@ var Ship = function(type,name,player) {
       //Mission is done for some reason
       this.player.addCash(this.mAward);
       this.mStatus = M_STATUS_NOMISSION;
+
+      this.mAward = 0;
+      this.needOrder = true;
     }
 
     this.doTurn = function() {
       //mission.nextDay
 
       if (this.mStatus == M_STATUS_ONMISSION) {
+
         //Fuel
         this.fuel -= this.mSpeed;
         if (this.fuel<0) {
@@ -122,7 +167,6 @@ var Ship = function(type,name,player) {
         }
 
         //Travel
-
         this.mDistance += this.mSpeed*24;
 
         if (this.mDistance > this.mTotalDistance ) {
@@ -130,8 +174,6 @@ var Ship = function(type,name,player) {
           this.mStatus = M_STATUS_UNLOADING;
           this.mLoading  = 3;
         }
-
-
 
       }
       else if (this.mStatus == M_STATUS_LOADING) {
@@ -147,9 +189,17 @@ var Ship = function(type,name,player) {
           this.stopMission();
         }
       }
+      if (this.mStatus == M_STATUS_NEWSHIP) {
+        this.mLoading  -= 1;
+        if (this.mLoading <= 0 ) {
+          this.stopMission();
+        }
+      }
 
-        //if something is done then  needOrder = true;
-        console.log("did a turn with ship");
+      //Daily cost
+      this.player.removeCash(this.dailyCost);
+
+        //console.log("did a turn with ship");
 
     };
 
@@ -175,7 +225,13 @@ var Ship = function(type,name,player) {
       return "getCurrentStatusInText default";
     };
     this.getDamage = function() {
-
+      return this.getCondition();
+    };
+    this.getCondition = function() {
+      console.log("GetCondition");
+      console.log(this.damage);
+      console.log(Math.floor(this.damage));
+      return Math.floor(this.damage);
     };
     this.getTankSize = function() {
         return this.tankSize;
