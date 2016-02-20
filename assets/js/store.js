@@ -7,7 +7,15 @@ var Store = {
 
     preload : function() {
 
-        this.game.stage.backgroundColor = '#6f7';
+        this.game.stage.backgroundColor = '#CBA';
+
+        var phaserJSON = this.game.cache.getJSON('shipDatabase');
+        phaserJSON = phaserJSON["shipDatabase"];
+        //console.log(phaserJSON);
+        for (var ship in phaserJSON) {
+          this.game.load.image(phaserJSON[ship].shipIcon, './assets/images/'+phaserJSON[ship].shipIcon);
+            console.log("tried to load:"+phaserJSON[ship].shipIcon);
+        }
 
     },
 
@@ -18,9 +26,9 @@ var Store = {
       //background.scale.y = 2;
 
         var gamelogoText;
-        gamelogoText = this.add.bitmapText(this.world.centerX, this.world.centerY/2, 'nokia_font', 'This is the Store',30);
+        gamelogoText = this.add.bitmapText(this.world.centerX, 10, 'nokia_font', 'This is the Store',30);
         gamelogoText.anchor.x = 0.5;
-        gamelogoText.anchor.y = 0.5;
+        gamelogoText.anchor.y = 0;
         gamelogoText.smoothed = false;
 
         var exitText;
@@ -34,17 +42,57 @@ var Store = {
 
 
 
+        /*
         var menuButton;
         // Add a sprite to your game, here the sprite will be the game's logo
         // Parameters are : X , Y , image name (see above)
 
-        menuButton = this.add.button(this.world.centerX, this.world.centerY, 'pirateship', this.buyShip, this );
+        menuButton = this.add.button(this.world.centerX, this.world.centerY, 'crapship', this.buyShip, this );
         menuButton.shipType = SHIP_TYPE_RUST_1;
         menuButton.smoothed = false;
         menuButton.anchor.x = 0.5;
         menuButton.anchor.y = 0.5;
         menuButton.scale.x = 1;
         menuButton.scale.y = 1;
+        */
+
+        var shipImageHeight = 160;
+        var textwidthoffset = 500;
+
+        var phaserJSON = this.game.cache.getJSON('shipDatabase');
+        phaserJSON = phaserJSON["shipDatabase"];
+        //console.log(phaserJSON);
+        var i = 0;
+        for (var ship in phaserJSON) {
+          if (phaserJSON[ship].category ==1) {
+            var shipButton = this.add.button(textwidthoffset, 40+shipImageHeight*i, phaserJSON[ship].shipIcon, this.buyShip, this );
+            shipButton.shipType = phaserJSON[ship].id;
+            shipButton.smoothed = false;
+            shipButton.anchor.x = 0;
+            shipButton.anchor.y = 0;
+            shipButton.scale.x = 2;
+            shipButton.scale.y = 2;
+            var shipTextString =
+                                " "+ phaserJSON[ship].modelName+"\n"+
+                                " Cost: "+ phaserJSON[ship].cost+"\n"+
+                                " FuelTank: "+ phaserJSON[ship].tankSize+"\n"+
+                                " cargoSize: "+ phaserJSON[ship].cargoSize+"\n"+
+                                " maxSpeed: "+ phaserJSON[ship].maxSpeed+"\n"+
+                                " dailyCost: "+ phaserJSON[ship].dailyCost+"\n"+
+                                " fuelUse: "+ phaserJSON[ship].fuelUse+"\n"+
+                                "";
+            var shipText;
+            shipText = this.add.bitmapText(150, 40+shipImageHeight*i+5, 'nokia_font', shipTextString,20);
+            shipText.anchor.x = 0;
+            shipText.anchor.y = 0;
+            shipText.smoothed = false;
+
+            i += 1;
+          }
+
+          //this.game.load.image(phaserJSON[ship].shipIcon, './assets/images/'+phaserJSON[ship].shipIcon);
+          //phaserJSON[ship].shipIcon
+        }
     },
     buyShip: function(button) {
         console.log("Store: buyShip function");

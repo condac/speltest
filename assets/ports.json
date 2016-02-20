@@ -1,5 +1,15 @@
 {
   "portDatabase": {
+    "origo":  {
+      "id" : "origo",
+      "name" : "Origo",
+      "lat" : 0.0,
+      "long" : 0.0,
+      "mapX" : 30,
+      "mapY" : 40,
+      "goods" : ["foodstuffs", "commodities", "minerals", "manufactured goods", "cut diamonds", "automobile parts"],
+      "url" : "http://www.golombek.com/locations.html "
+    },
 
     "nyc":  {
       "id" : "nyc",
@@ -9,17 +19,81 @@
       "mapX" : 30,
       "mapY" : 40,
       "goods" : ["foodstuffs", "commodities", "minerals", "manufactured goods", "cut diamonds", "automobile parts"],
-      "url" : "http://www.golombek.com/locations.html"
+      "url" : "http://www.golombek.com/locations.html "
     },
     "london": {
       "id" : "london",
-      "modelName" : "London",
+      "name" : "London",
       "lat" : 51.50000,
       "long" : -0.11670,
       "mapX" : 300,
       "mapY" : 400,
-      "goods" : ["foodstuffs", "commodities", "minerals", "manufactured goods", "cut diamonds", "automobile parts"],
+      "goods" : ["foodstuffs", "commodities", "minerals", "manufactured goods", "cut diamonds", "automobile parts"]
 
+    },
+    "shanghai": {
+      "id" : "shanghai",
+      "name" : "Shanghai",
+      "lat" : 30.626539,
+      "long" : 122.064958,
+      "mapX" : 300,
+      "mapY" : 400,
+      "goods" : ["foodstuffs", "commodities", "minerals", "manufactured goods", "cut diamonds", "automobile parts"]
+
+    },
+    "singapore": {
+      "id" : "singapore",
+      "name" : "Port of Singapore",
+      "lat" : 1.264,
+      "long" : 103.840,
+      "mapX" : 300,
+      "mapY" : 400,
+      "goods" : ["foodstuffs", "commodities", "minerals", "manufactured goods", "cut diamonds", "automobile parts"]
+    },
+    "dubai": {
+      "id" : "dubai",
+      "name" : "Port of Jebel Ali (Dubai)",
+      "lat" : 25.01126,
+      "long" : 55.06116,
+      "mapX" : 300,
+      "mapY" : 400,
+      "goods" : ["foodstuffs", "commodities", "minerals", "manufactured goods", "cut diamonds", "automobile parts"]
+    },
+    "puerto": {
+      "id" : "puerto",
+      "name" : "Puerto Williams",
+      "lat" : -54.9345,
+      "long" : -67.6085,
+      "mapX" : 300,
+      "mapY" : 400,
+      "goods" : ["foodstuffs", "commodities", "minerals", "manufactured goods", "cut diamonds", "automobile parts"]
+    },
+    "hamburg": {
+      "id" : "hamburg",
+      "name" : "Port of Hamburg",
+      "lat" : 53.5316283,
+      "long" : 9.9084179,
+      "mapX" : 300,
+      "mapY" : 400,
+      "goods" : ["foodstuffs", "commodities", "minerals", "manufactured goods", "cut diamonds", "automobile parts"]
+    },
+    "la": {
+      "id" : "la",
+      "name" : "Port of Los Angeles",
+      "lat" : 33.7291858,
+      "long" : -118.2620150,
+      "mapX" : 300,
+      "mapY" : 400,
+      "goods" : ["foodstuffs", "commodities", "minerals", "manufactured goods", "cut diamonds", "automobile parts"]
+    },
+    "rotterdam": {
+      "id" : "rotterdam",
+      "name" : "Port of Rotterdam",
+      "lat" : 51.8850,
+      "long" : 4.2867,
+      "mapX" : 300,
+      "mapY" : 400,
+      "goods" : ["foodstuffs", "commodities", "minerals", "manufactured goods", "cut diamonds", "automobile parts"]
     }
 
   }

@@ -30,6 +30,7 @@ var Menu = {
     },
 
     create: function () {
+      this.state.start('Game');
         var logo;
         // Add a sprite to your game, here the sprite will be the game's logo
         // Parameters are : X , Y , image name (see above)

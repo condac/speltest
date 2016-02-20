@@ -7,5 +7,8 @@ game.state.add('Menu', Menu);
 game.state.add('Game', Game);
 game.state.add('Store', Store);
 game.state.add('Selector', Selector);
+game.state.add('Selector_fuel', Selector_fuel);
+game.state.add('Selector_repair', Selector_repair);
+game.state.add('Selector_mission', Selector_mission);
 
 game.state.start('Boot');

@@ -17,6 +17,7 @@ var p1_cashText;
 var p2_cashText;
 var p3_cashText;
 var p4_cashText;
+var shipSprites = [];
 
 var Game = {
 
@@ -25,6 +26,7 @@ var Game = {
         // In our case, that's just two squares - one for the snake body and one for the apple.
         //game.load.image('snake', './assets/images/snake.png');
         //game.load.image('apple', './assets/images/apple.png');
+        
     },
 
     create : function() {
@@ -33,6 +35,42 @@ var Game = {
         background.smoothed = false;
         background.scale.x = 2;
         background.scale.y = 2;
+
+        for (var port in Mech.ports) {
+          var x = Mech.ports[port].getLong();
+          var y = Mech.ports[port].getLat();
+          x = Mech.lonToX(x);
+          y = Mech.latToY(y);
+          x = Math.round(x);
+          y = Math.round(y);
+          var portSprite = game.add.sprite(x, y, 'portMapPin');
+          portSprite.smoothed = false;
+          portSprite.scale.x = 2;
+          portSprite.scale.y = 2;
+          portSprite.anchor.x = 0.5;
+          portSprite.anchor.y = 0.5;
+          //console.log("created portPin at"+x+" "+y);
+
+        }
+
+        //Draw all players ship on map
+        var i = 0;
+        for (var player in Mech.players) {
+          for (var ship in Mech.players[player].shipList) {
+            var x = Mech.players[player].shipList[ship].getX();
+            var y = Mech.players[player].shipList[ship].getY();
+
+            shipSprites[i] = game.add.sprite(x, y, 'smallMapShip');
+
+            shipSprites[i].smoothed = false;
+            shipSprites[i].scale.x = 3;
+            shipSprites[i].scale.y = 3;
+            shipSprites[i].anchor.x = 0.5;
+            shipSprites[i].anchor.y = 0.5;
+            console.log("created shipPin at"+x+" "+y);
+            i += 1;
+          }
+        }
 
 
         var buttonwidth = 89*2;
@@ -86,7 +124,7 @@ var Game = {
         button3.scale.y = 2;
         button4.scale.y = 2;
 
-        sprite1 = this.add.sprite(100, 200, 'pirateship');
+        sprite1 = this.add.sprite(100, 500, 'pirateship');
         sprite1.inputEnabled = true;
         sprite1.input.enableDrag();
         sprite1.scale.x = 1;
@@ -134,6 +172,12 @@ var Game = {
         p4_cashText.anchor.y = 0;
         p4_cashText.smoothed = false;
         p4_cashText.setText("Cash: "+Mech.players[4].getCash());
+
+        oilText = this.game.add.bitmapText(0, this.world.height, 'nokia_font', 'World Oil Price: $', 15);
+        oilText.anchor.x = 0;
+        oilText.anchor.y = 1;
+        oilText.smoothed = false;
+        oilText.setText("World Oil Price: $"+Mech.oilWorldPrice);
 
         this.checkForAction();
 
@@ -198,6 +242,7 @@ var Game = {
       Mech.nextDay();
       console.log(Mech.players[1]);
       this.checkForAction();
+
     },
     buttonFastForwardClick: function() {
       console.log("buttonFastForwardClick");
@@ -208,7 +253,7 @@ var Game = {
       console.log("buttonSaveGameClick");
       console.log("shiplist output:");
       console.log(Mech.players);
-
+      console.log(Mech.ports);
 
     },
 
@@ -227,6 +272,23 @@ var Game = {
         p3_cashText.setText(Mech.players[3].getName()+" : "+Mech.players[3].getCashNiceString());
         p4_cashText.setText(Mech.players[4].getName()+" : "+Mech.players[4].getCashNiceString());
         this.updateText();
+
+        //Draw all players ship on map
+        var i = 0;
+        for (var player in Mech.players) {
+          for (var ship in Mech.players[player].shipList) {
+            var x = Mech.players[player].shipList[ship].getX();
+            var y = Mech.players[player].shipList[ship].getY();
+
+            //shipSprites[i] = game.add.sprite(x, y, 'smallMapShip');
+
+
+            shipSprites[i].x = x;
+            shipSprites[i].y = y;
+            //console.log("created shipPin at"+x+" "+y);
+            i += 1;
+          }
+        }
     },
 
     updateText: function() {
@@ -239,19 +301,17 @@ var Game = {
       }
 
       dumpText.setText( shipstatus );
+
+      var round = (Math.round(Mech.oilWorldPrice*100)/100);
+      if (Mech.oilWorldDir == 1) {
+        oilText.setText("World Oil Price: $"+round+" +++");
+      } else if (Mech.oilWorldDir == -1) {
+        oilText.setText("World Oil Price: $"+round+" ---");
+      } else {
+        oilText.setText("World Oil Price: $"+round+" ");
+      }
     },
-    generateApple: function(){
 
-        // Chose a random place on the grid.
-        // X is between 0 and 585 (39*15)
-        // Y is between 0 and 435 (29*15)
-
-        var randomX = Math.floor(Math.random() * 40 ) * squareSize,
-            randomY = Math.floor(Math.random() * 30 ) * squareSize;
-
-        // Add a new apple.
-        apple = game.add.sprite(randomX, randomY, 'apple');
-    },
     render: function() {
         // The update function is called constantly at a high rate (somewhere around 60fps),
         // updating the game field every time.

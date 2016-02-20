@@ -2,7 +2,7 @@
 
     "rust1":  {
         "id" : "rust1",
-        "modelName" : "Rusty old crap2",
+        "modelName" : "Rusty old crap",
         "initialCondition" : 55.5,
         "cost" : 1300000,
         "tankSize" : 2000,
@@ -10,7 +10,8 @@
         "maxSpeed" : 15,
         "category" : 1,
         "dailyCost" : 3000,
-        "fuelUse" : 2
+        "fuelUse" : 2,
+        "shipIcon" : "crap2.png"
 
       },
       "rust2": {
@@ -20,10 +21,11 @@
         "tankSize" : 2500,
         "cargoSize" : 15000,
         "maxSpeed" : 15,
-        "category" : 1,
+        "category" : 2,
         "fuelUse" : 2,
         "initialCondition" : 55,
-        "dailyCost" : 3000
+        "dailyCost" : 3000,
+        "shipIcon" : "crapship.png"
 
       },
       "budget1":  {
@@ -36,7 +38,22 @@
           "category" : 1,
           "fuelUse" : 2,
           "initialCondition" : 90,
-          "dailyCost" : 3000
-        }
+          "dailyCost" : 3000,
+          "shipIcon" : "budget1.png"
+      },
+      "hightech3": {
+        "id" : "hightech3",
+        "modelName" : "Arctic Zero",
+        "cost" : 23000000,
+        "tankSize" : 5000,
+        "cargoSize" : 30000,
+        "maxSpeed" : 25,
+        "category" : 1,
+        "fuelUse" : 2,
+        "initialCondition" : 99,
+        "dailyCost" : 6000,
+        "shipIcon" : "hightech3.png"
+
+      }
 
 }}
