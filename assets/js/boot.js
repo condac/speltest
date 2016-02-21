@@ -54,6 +54,13 @@ Load.prototype = {
     this.game.load.image('categoryButton', './assets/images/categoryButton.png');
     this.game.load.image('portBackground', './assets/images/port.png');
     this.game.load.image('portBackground_water', './assets/images/port_waterline.png');
+    this.game.load.image('sliderY', './assets/images/slider200x32.png');
+    this.game.load.image('sliderX', './assets/images/slider_turn.png');
+    this.game.load.image('sliderButton', './assets/images/port-pin.png');
+    this.game.load.image('minigame_dock_level1', './assets/images/minigame_dock_level1.png');
+
+    this.load.tilemap('level1', 'assets/tilemaps/level1.json', null, Phaser.Tilemap.TILED_JSON);
+    this.load.image('gameTiles', 'assets/tilemaps/tileset.png');
 
     var phaserJSON = this.game.cache.getJSON('shipDatabase');
     //console.log(phaserJSON);

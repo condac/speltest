@@ -10,5 +10,6 @@ game.state.add('Selector', Selector);
 game.state.add('Selector_fuel', Selector_fuel);
 game.state.add('Selector_repair', Selector_repair);
 game.state.add('Selector_mission', Selector_mission);
+game.state.add('Minigame_dock', Minigame_dock);
 
 game.state.start('Boot');

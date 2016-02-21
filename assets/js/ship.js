@@ -47,7 +47,7 @@ var Ship = function(type,name,player) {
       this.mDestination = destination;
       this.mAward = award;
       this.needOrder = false;
-      console.log("Mission started: "+destination);
+      console.log("Mission started: "+destination+" "+this.mTotalDistance+" "+this.mSpeed+" "+this.mAward);
     }
     this.stopMission = function() {
       //Mission is done for some reason

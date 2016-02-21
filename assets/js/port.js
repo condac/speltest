@@ -12,7 +12,7 @@ var Port = function(name) {
   //this.shipList = [];
 
   this.newOilPrice = function() {
-    this.oilPrice = Mech.weightedRandom(200,3);
+    this.oilPrice = Mech.weightedRandom(800,10);
   };
   this.getOilPrice = function() {
     return this.oilPrice;

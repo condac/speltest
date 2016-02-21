@@ -15,7 +15,12 @@ var Mech = {
   cPort: 1,
   oilWorldPrice: 1,
   oilWorldDir: 0,
+  oilWorldMax: 1,
+  oilWorldMin: 1,
   destination: "0",
+  distance: "0",
+  reward: "0",
+  speed: "0",
   jsonShipDatabase: "",
   jsonShipCategory: "",
   jsonPortDatabase: "",
@@ -39,9 +44,17 @@ var Mech = {
     }
 
   },
-  setDestination: function(invar) {
+  setDestination: function(invar, indistance) {
+    this.distance = indistance;
     this.destination = invar;
-
+    this.reward = 200000;
+    this.speed = 10;
+  },
+  clearMissionSelection: function(invar, indistance) {
+    this.distance = 0;
+    this.destination = 0;
+    this.reward = 0;
+    this.speed = 0;
   },
 
   createWorld: function() {
@@ -132,19 +145,30 @@ var Mech = {
     //console.log(d);
   },
   updateOilPrice: function () {
+    var pmin = 1000.0;
+    var pmax = 0.0;
     var total = 0;
     var totalnr = 0;
     for (var port in Mech.ports ) {
       Mech.ports[port].newOilPrice();
-      total += Mech.ports[port].getOilPrice();
+      var price = Mech.ports[port].getOilPrice();
+      total += price;
       totalnr += 1;
+      console.log(typeof price);
+      if (price > pmax) {
+        pmax = price;
+      }
+      if (price < pmin) {
+        pmin = price;
+      }
     }
     if (this.oilWorldPrice< (total/totalnr) ) {
       this.oilWorldDir = 1;
     } else {
       this.oilWorldDir = -1;
     }
-
+    this.oilWorldMax = pmax;
+    this.oilWorldMin = pmin;
     this.oilWorldPrice = total / totalnr;
   },
   updateMissions: function () {
@@ -181,7 +205,7 @@ var Mech = {
     var y =   ((MAP_HEIGHT/180.0) * (90 - lat));
     return y + MAP_OFFSET_Y;
   },
-  updateOilPrice: function () {
+  updateOilPrice2: function () {
     var total = 0;
     var totalnr = 0;
     for (var port in Mech.ports ) {

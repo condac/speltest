@@ -78,24 +78,24 @@ var Game = {
 
         buttonMainMenu = this.add.button(buttonwidth*0, 0, 'mainMenuButtonImage', this.buttonMainMenuClick, this);
         buttonBuyShip =  this.add.button(buttonwidth*1, 0, 'buyShipButtonImage',  this.buttonBuyShipClick, this);
-        //buttonLoadGame = this.add.button(buttonwidth*2, 0, 'loadGameButtonImage', this.buttonLoadGameClick, this);
+        buttonLoadGame = this.add.button(buttonwidth*2, 0, 'loadGameButtonImage', this.buttonLoadGameClick, this);
         buttonNextDay =  this.add.button(buttonwidth*3, 0, 'nextDayButtonImage',  this.buttonNextDayClick, this);
         buttonSaveGame = this.add.button(buttonwidth*4, 0, 'saveGameButtonImage', this.buttonSaveGameClick, this);
 
         buttonBuyShip.smoothed = false;
-        //buttonLoadGame.smoothed = false;
+        buttonLoadGame.smoothed = false;
         buttonMainMenu.smoothed = false;
         buttonNextDay.smoothed = false;
         buttonSaveGame.smoothed = false;
 
         buttonBuyShip .scale.x = 2;
-        //buttonLoadGame.scale.x = 2;
+        buttonLoadGame.scale.x = 2;
         buttonMainMenu.scale.x = 2;
         buttonNextDay .scale.x = 2;
         buttonSaveGame.scale.x = 2;
 
         buttonBuyShip .scale.y = 2;
-        //buttonLoadGame.scale.y = 2;
+        buttonLoadGame.scale.y = 2;
         buttonMainMenu.scale.y = 2;
         buttonNextDay .scale.y = 2;
         buttonSaveGame.scale.y = 2;
@@ -124,7 +124,7 @@ var Game = {
         button3.scale.y = 2;
         button4.scale.y = 2;
 
-        sprite1 = this.add.sprite(100, 500, 'pirateship');
+        sprite1 = this.add.sprite(600, 600, 'pirateship');
         sprite1.inputEnabled = true;
         sprite1.input.enableDrag();
         sprite1.scale.x = 1;
@@ -232,10 +232,7 @@ var Game = {
       game.state.start('Store');
     },
     buttonLoadGameClick: function() {
-      console.log("buttonLoadGameClick");
-
-      Mech.players[1].shipList[0].startMission(5000, 10000, "destination", "departure",15);
-
+      game.state.start('Minigame_dock');
 
     },
     buttonNextDayClick: function() {
@@ -306,12 +303,15 @@ var Game = {
       dumpText.setText( shipstatus );
 
       var round = (Math.round(Mech.oilWorldPrice*100)/100);
+      var roundMax = (Math.round(Mech.oilWorldMax*100)/100);
+      var roundMin = (Math.round(Mech.oilWorldMin*100)/100);
+
       if (Mech.oilWorldDir == 1) {
-        oilText.setText("World Oil Price: $"+round+" +++");
+        oilText.setText("World Oil Price: $"+round+" +++ Max: "+roundMax+" Min: "+roundMin);
       } else if (Mech.oilWorldDir == -1) {
-        oilText.setText("World Oil Price: $"+round+" ---");
+        oilText.setText("World Oil Price: $"+round+" --- Max: "+roundMax+" Min: "+roundMin);
       } else {
-        oilText.setText("World Oil Price: $"+round+" ");
+        oilText.setText("World Oil Price: $"+round+"  Max: "+roundMax+" Min: "+roundMin);
       }
     },
 

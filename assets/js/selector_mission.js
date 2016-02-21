@@ -41,7 +41,7 @@ var Selector_mission = {
       waterline.scale.y = 2;
       waterline.alpha = 0.9;
 
-      
+
       var textSize = 20;
       var textSpace = textSize +1;
 
@@ -55,11 +55,12 @@ var Selector_mission = {
         var i = 0;
 
         for (var port in Mech.ports[Mech.cPort].connections ) {
-          console.log(Mech.ports[Mech.cPort].connections[port]);
+          //console.log(Mech.ports[Mech.cPort].connections[port]);
           var distance = Mech.ports[Mech.cPort].getDistanceTo(Mech.ports[Mech.cPort].connections[port]);
-          distance = Math.round(distance)+"nm";
-            var portButton = this.add.bitmapText(150, 40+30*i+5, 'nokia_font', PortFactory.getName(Mech.ports[Mech.cPort].connections[port])+distance ,20);
+          var distancenm = Math.round(distance)+"nm";
+            var portButton = this.add.bitmapText(150, 40+32*i+5, 'nokia_font', PortFactory.getName(Mech.ports[Mech.cPort].connections[port])+"   "+distancenm ,20);
             portButton.portId = Mech.ports[Mech.cPort].connections[port];
+            portButton.distance = distance;
             portButton.smoothed = false;
             portButton.anchor.x = 0;
             portButton.anchor.y = 0;
@@ -102,7 +103,7 @@ var Selector_mission = {
     },
     portButtonClick: function(button) {
       console.log(button.portId);
-      Mech.setDestination(button.portId);
+      Mech.setDestination(button.portId, button.distance);
 
     },
     repairShip75: function(button) {

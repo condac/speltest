@@ -166,7 +166,8 @@ var Selector = {
     },
     goOnMission: function() {
 
-      Mech.players[Mech.currentPlayer].shipList[Mech.currentShip].startMission(5000, 10000, Mech.destination, "departure",15);
+      Mech.players[Mech.currentPlayer].shipList[Mech.currentShip].startMission(Mech.distance, Mech.reward, Mech.destination, "departure",Mech.speed);
+      Mech.clearMissionSelection();
       // Change the state back to game
       this.state.start('Game');
 
