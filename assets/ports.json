@@ -43,7 +43,7 @@
     },
     "singapore": {
       "id" : "singapore",
-      "name" : "Port of Singapore",
+      "name" : "Singapore",
       "lat" : 1.264,
       "long" : 103.840,
       "mapX" : 300,
@@ -52,7 +52,7 @@
     },
     "dubai": {
       "id" : "dubai",
-      "name" : "Port of Jebel Ali (Dubai)",
+      "name" : "Jebel Ali (Dubai)",
       "lat" : 25.01126,
       "long" : 55.06116,
       "mapX" : 300,
@@ -70,7 +70,7 @@
     },
     "hamburg": {
       "id" : "hamburg",
-      "name" : "Port of Hamburg",
+      "name" : "Hamburg",
       "lat" : 53.5316283,
       "long" : 9.9084179,
       "mapX" : 300,
@@ -79,16 +79,25 @@
     },
     "la": {
       "id" : "la",
-      "name" : "Port of Los Angeles",
+      "name" : "Los Angeles",
       "lat" : 33.7291858,
       "long" : -118.2620150,
       "mapX" : 300,
       "mapY" : 400,
       "goods" : ["foodstuffs", "commodities", "minerals", "manufactured goods", "cut diamonds", "automobile parts"]
     },
+    "melbourne": {
+      "id" : "melbourne",
+      "name" : "Melbourne",
+      "lat" : -37.8453768,
+      "long" : 144.897313,
+      "mapX" : 300,
+      "mapY" : 400,
+      "goods" : ["foodstuffs", "commodities", "minerals", "manufactured goods", "cut diamonds", "automobile parts"]
+    },
     "rotterdam": {
       "id" : "rotterdam",
-      "name" : "Port of Rotterdam",
+      "name" : "Rotterdam",
       "lat" : 51.8850,
       "long" : 4.2867,
       "mapX" : 300,

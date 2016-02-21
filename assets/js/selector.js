@@ -18,10 +18,39 @@ var Selector = {
     },
 
     create: function () {
-      var background = game.add.sprite(0, 0, "selectorBackground");
+      var background = game.add.sprite(0, 0, "portBackground");
       background.smoothed = false;
       background.scale.x = 2;
       background.scale.y = 2;
+
+      var boatoffset = 450;
+      var waterlevel = 148;
+
+      boatSprite = this.add.sprite(100, boatoffset, Mech.players[Mech.currentPlayer].shipList[Mech.currentShip].shipIcon );
+      boatSprite.inputEnabled = true;
+      boatSprite.input.enableDrag();
+      boatSprite.smoothed = false;
+      boatSprite.scale.x = 2;
+      boatSprite.scale.y = 2;
+
+
+      var waterline = game.add.sprite(0, game.world.height-waterlevel, "portBackground_water");
+      waterline.smoothed = false;
+      waterline.scale.x = 2;
+      waterline.scale.y = 2;
+      waterline.alpha = 0.9;
+
+      var drawnObject;
+      var width = 10 // example;
+      var height = 10 // example;
+      var bmd = game.add.bitmapData(width, height);
+
+      bmd.ctx.beginPath();
+      bmd.ctx.rect(0, 0, width, height);
+      bmd.ctx.fillStyle = '#ffffff';
+      bmd.ctx.fill();
+      drawnObject = game.add.sprite(0, 0, bmd);
+      drawnObject.anchor.setTo(0.5, 0.5);
 
       var textSize = 20;
       var textSpace = textSize +1;
@@ -33,6 +62,9 @@ var Selector = {
       playerText.anchor.y = 0;
       playerText.smoothed = false;
 
+      //console.log(Mech.ports[Mech.cPort]);
+      //console.log(Mech.ports);
+      //console.log(Mech.cPort);
       var shipTextString =
                           "Location: "+ Mech.ports[Mech.cPort].getName()+"\n"+
                           "Ship:"+Mech.players[Mech.currentPlayer].shipList[Mech.currentShip].getName()+".\n"+
@@ -106,14 +138,14 @@ var Selector = {
       key2 = game.input.keyboard.addKey(Phaser.Keyboard.FIVE);
       key2.onDown.add(this.doWait, this);
 
-      var exitText;
+      /*var exitText;
       exitText = this.add.bitmapText(this.world.centerX,this.world.height, 'nokia_font', 'Go on Mission!!',20);
       exitText.anchor.x = 0.5;
       exitText.anchor.y = 1;
       exitText.smoothed = false;
       exitText.inputEnabled = true;
       // It will act as a button to start the game.
-      exitText.events.onInputDown.add(this.goOnMission, this);
+      exitText.events.onInputDown.add(this.goOnMission, this);*/
 
     },
     doSelectMission: function() {
@@ -134,7 +166,7 @@ var Selector = {
     },
     goOnMission: function() {
 
-      Mech.players[Mech.currentPlayer].shipList[Mech.currentShip].startMission(5000, 10000, "london", "departure",15);
+      Mech.players[Mech.currentPlayer].shipList[Mech.currentShip].startMission(5000, 10000, Mech.destination, "departure",15);
       // Change the state back to game
       this.state.start('Game');
 

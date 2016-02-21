@@ -1,4 +1,19 @@
-{"shipDatabase": {
+{
+  "shipCategory": {
+    "1": {
+      "name" : "ScrapYard"
+      } ,
+    "2": {
+      "name" : "Budget"
+      } ,
+    "3": {
+      "name" : "New"
+    },
+    "4": {
+      "name" : "Pirates"
+      }
+  },
+  "shipDatabase": {
 
     "rust1":  {
         "id" : "rust1",
@@ -11,22 +26,50 @@
         "category" : 1,
         "dailyCost" : 3000,
         "fuelUse" : 2,
-        "shipIcon" : "crap2.png"
+        "shipIcon" : "crap1.png"
 
       },
-      "rust2": {
-        "id" : "rust2",
-        "modelName" : "Rusty Big crap",
+      "p1":  {
+          "id" : "p1",
+          "modelName" : "Arrgh Pirates!",
+          "initialCondition" : 55.5,
+          "cost" : 130000,
+          "tankSize" : 2000,
+          "cargoSize" : 7000,
+          "maxSpeed" : 5,
+          "category" : 4,
+          "dailyCost" : 3000,
+          "fuelUse" : 0,
+          "shipIcon" : "pirate-ship.png"
+
+        },
+      "rust2":  {
+          "id" : "rust2",
+          "modelName" : "Rusty old crap",
+          "initialCondition" : 55.5,
+          "cost" : 1300000,
+          "tankSize" : 2000,
+          "cargoSize" : 7000,
+          "maxSpeed" : 15,
+          "category" : 1,
+          "dailyCost" : 3000,
+          "fuelUse" : 2,
+          "shipIcon" : "crap2.png"
+
+        },
+      "budget2": {
+        "id" : "budget2",
+        "modelName" : "Sea-Land Consumer",
         "cost" : 2300000,
         "tankSize" : 2500,
-        "cargoSize" : 15000,
-        "maxSpeed" : 15,
+        "cargoSize" : 14500,
+        "maxSpeed" : 19,
         "category" : 2,
         "fuelUse" : 2,
         "initialCondition" : 55,
         "dailyCost" : 3000,
-        "shipIcon" : "crapship.png"
-
+        "shipIcon" : "consumer1.png",
+        "comments" : "IMO:  7224306  MMSI:  368600000   Call Sign:  WCHF   Flag:  USA [US]  AIS Type:  Cargo   Gross Tonnage:  25644        Deadweight:  25737 t        Length Overall x Breadth Extreme:  219.6m × 29.04m        Year Built:  1973        Status:  Active"
       },
       "budget1":  {
           "id" : "budget1",
@@ -35,7 +78,7 @@
           "tankSize" : 3000,
           "cargoSize" : 10000,
           "maxSpeed" : 15,
-          "category" : 1,
+          "category" : 2,
           "fuelUse" : 2,
           "initialCondition" : 90,
           "dailyCost" : 3000,
@@ -48,7 +91,7 @@
         "tankSize" : 5000,
         "cargoSize" : 30000,
         "maxSpeed" : 25,
-        "category" : 1,
+        "category" : 3,
         "fuelUse" : 2,
         "initialCondition" : 99,
         "dailyCost" : 6000,
@@ -56,4 +99,5 @@
 
       }
 
-}}
+    }
+}

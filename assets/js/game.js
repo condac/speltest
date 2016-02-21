@@ -26,7 +26,7 @@ var Game = {
         // In our case, that's just two squares - one for the snake body and one for the apple.
         //game.load.image('snake', './assets/images/snake.png');
         //game.load.image('apple', './assets/images/apple.png');
-        
+
     },
 
     create : function() {
@@ -78,24 +78,24 @@ var Game = {
 
         buttonMainMenu = this.add.button(buttonwidth*0, 0, 'mainMenuButtonImage', this.buttonMainMenuClick, this);
         buttonBuyShip =  this.add.button(buttonwidth*1, 0, 'buyShipButtonImage',  this.buttonBuyShipClick, this);
-        buttonLoadGame = this.add.button(buttonwidth*2, 0, 'loadGameButtonImage', this.buttonLoadGameClick, this);
+        //buttonLoadGame = this.add.button(buttonwidth*2, 0, 'loadGameButtonImage', this.buttonLoadGameClick, this);
         buttonNextDay =  this.add.button(buttonwidth*3, 0, 'nextDayButtonImage',  this.buttonNextDayClick, this);
         buttonSaveGame = this.add.button(buttonwidth*4, 0, 'saveGameButtonImage', this.buttonSaveGameClick, this);
 
         buttonBuyShip.smoothed = false;
-        buttonLoadGame.smoothed = false;
+        //buttonLoadGame.smoothed = false;
         buttonMainMenu.smoothed = false;
         buttonNextDay.smoothed = false;
         buttonSaveGame.smoothed = false;
 
         buttonBuyShip .scale.x = 2;
-        buttonLoadGame.scale.x = 2;
+        //buttonLoadGame.scale.x = 2;
         buttonMainMenu.scale.x = 2;
         buttonNextDay .scale.x = 2;
         buttonSaveGame.scale.x = 2;
 
         buttonBuyShip .scale.y = 2;
-        buttonLoadGame.scale.y = 2;
+        //buttonLoadGame.scale.y = 2;
         buttonMainMenu.scale.y = 2;
         buttonNextDay .scale.y = 2;
         buttonSaveGame.scale.y = 2;
@@ -210,6 +210,7 @@ var Game = {
           if (Mech.players[player].shipList[ship].waitingForAction() ) {
             Mech.setCurrentPlayer(player);
             Mech.setCurrentShip(ship);
+            Mech.setCurrentPort(Mech.players[player].shipList[ship].getCurrentPort());
             game.state.start("Selector");
           }
 
@@ -260,6 +261,7 @@ var Game = {
     sprite1Click: function() {
       console.log("sprite1click");
       Mech.players[1].addCash(100000);
+      Mech.players[Mech.currentPlayer].buyShip("p1","Pirateship");
 
     },
 
@@ -282,9 +284,10 @@ var Game = {
 
             //shipSprites[i] = game.add.sprite(x, y, 'smallMapShip');
 
-
-            shipSprites[i].x = x;
-            shipSprites[i].y = y;
+            if(typeof shipSprites[i] !== 'undefined'){
+              shipSprites[i].x = x;
+              shipSprites[i].y = y;
+            }
             //console.log("created shipPin at"+x+" "+y);
             i += 1;
           }

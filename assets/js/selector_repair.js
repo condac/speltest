@@ -34,6 +34,7 @@ var Selector_repair = {
         playerText.anchor.y = 0;
         playerText.smoothed = false;
 
+        var shipTextString = "sätts i update loopen";
         /*var shipTextString = "Ship:"+Mech.players[Mech.currentPlayer].shipList[Mech.currentShip].getName()+".\n"+
                             "Condition: "+ Mech.players[Mech.currentPlayer].shipList[Mech.currentShip].getCondition()+"%\n"+
                             "Fuel Capacity: "+ Mech.players[Mech.currentPlayer].shipList[Mech.currentShip].tankSize+" Ton\n"+

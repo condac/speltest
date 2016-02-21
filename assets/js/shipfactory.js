@@ -26,6 +26,15 @@ var ShipFactory =  {
     return shipjson.modelName;
 
   },
+  getShipIcon : function(type) {
+
+    var phaserJSON = game.cache.getJSON('shipDatabase');
+    phaserJSON = phaserJSON["shipDatabase"];
+    //console.log(phaserJSON);
+    var shipjson = phaserJSON[type];
+    return shipjson.shipIcon;
+
+  },
   getCost : function(type) {
     //console.log(type);
     var phaserJSON = game.cache.getJSON('shipDatabase');
